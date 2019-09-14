@@ -14,7 +14,7 @@ namespace SocketShot
     {
         public StreamManager()
         {
-            bool capture = true;
+			bool capture = true;
 
             Stopwatch timer = new Stopwatch();
             var averageTime = 0l;
@@ -28,32 +28,66 @@ namespace SocketShot
             Graphics graphics;
             var groupName = DateTime.Now.Ticks.ToString();
             
-
-            bitmap = new Bitmap(100, 100);
+            bitmap = new Bitmap(1000, 1000, PixelFormat.Format24bppRgb);
 
             graphics = Graphics.FromImage(bitmap as Image);
             string b64Bitmap = "";
 
-            while (capture)
-            {
-                timer.Restart();
+			// Setup encoder
+			ImageCodecInfo jpgEncoder = GetEncoder(ImageFormat.Jpeg);
+			EncoderParameters encoderParameters = new EncoderParameters(1);
+			// Quality options
+			var qualityEncoder = Encoder.Quality;
+			EncoderParameter qualityEncoderParameter = new EncoderParameter(qualityEncoder, 10L);
+			encoderParameters.Param[0] = qualityEncoderParameter;
+			while (capture)
+			{
+				timer.Restart();
+
+				graphics.CopyFromScreen(0, 0, 0, 0, bitmap.Size);
+
+				using (var ms = new MemoryStream())
+				{
+					//bitmap.Save(ms, ImageFormat.Png); // Too large
+					bitmap.Save(ms, jpgEncoder, encoderParameters);
 
 
-                graphics.CopyFromScreen(0, 0, 0, 0, bitmap.Size);
+					byte[] byteImage = ms.ToArray();
+					b64Bitmap = Convert.ToBase64String(byteImage);
+				}
 
-                using (var ms = new MemoryStream())
-                {
-                    bitmap.Save(ms, ImageFormat.Png);
-                    byte[] byteImage = ms.ToArray();
-                    b64Bitmap = Convert.ToBase64String(byteImage);
-                }
+				bool sendFailed;
+				try
+				{
+					hubProxy.Invoke("sendScreen", "data:image/png;base64, " + b64Bitmap).Wait();
+					sendFailed = false;
+				}
+				catch (Exception e)
+				{
+					// Image could not be sent
+					sendFailed = true;
+				}
 
-                hubProxy.Invoke("sendScreen", "data:image/png;base64, " + b64Bitmap).Wait();
+				timer.Stop();
+				averageTime = (averageTime + timer.ElapsedMilliseconds) / 2;
 
-                timer.Stop();
-                averageTime = (averageTime + timer.ElapsedMilliseconds) / 2;
-                Console.WriteLine(averageTime + "ms");
-            }
-        }
-    }
+				Console.WriteLine(averageTime + "ms" + " Size:" + b64Bitmap.Length / 1024 + "Kb - " + ((sendFailed) ? "failed" : ""));
+			}
+		}
+
+		private ImageCodecInfo GetEncoder(ImageFormat format)
+		{
+			ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
+
+			foreach (ImageCodecInfo codec in codecs)
+			{
+				if (codec.FormatID == format.Guid)
+				{
+					return codec;
+				}
+			}
+
+			return null;
+		}
+	}
 }
