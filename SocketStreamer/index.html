@@ -10,18 +10,22 @@
     <script type="text/javascript">
         var contosoChatHubProxy = $.connection.streamHub;
         contosoChatHubProxy.client.sendScreen = function (bitmap) {
-            console.log('received');
-            debugger;
+            //console.log('received');
+            //debugger;
             document.getElementById("imagediv").setAttribute('src', bitmap);
-            console.log(document.getElementById("imagediv").getAttribute('src'));
+            //console.log(document.getElementById("imagediv").getAttribute('src'));
         };
         $.connection.hub.start()
-            .done(function () { console.log('Now connected, connection ID=' + $.connection.hub.id); })
-            .fail(function () { console.log('Could not Connect!'); });
+			.done(function () {
+				console.log('Now connected, connection ID=' + $.connection.hub.id);
+			})
+			.fail(function () {
+				console.log('Could not Connect!');
+			});
     </script>
 </head>
 <body>
-    <div id="imagediv"></div>
+    <img style="display: block;" id="imagediv" />
 
 </body>
 </html>
