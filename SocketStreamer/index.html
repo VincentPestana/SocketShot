@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-1.6.4.js"></script>
+    <script src="Scripts/jquery.signalR-2.3.0.js"></script>
+    <script src="signalr/hubs"></script>
+
+    <script type="text/javascript">
+        var contosoChatHubProxy = $.connection.streamHub;
+        contosoChatHubProxy.client.sendScreen = function (bitmap) {
+            console.log('received');
+            debugger;
+            document.getElementById("imagediv").setAttribute('src', bitmap);
+            console.log(document.getElementById("imagediv").getAttribute('src'));
+        };
+        $.connection.hub.start()
+            .done(function () { console.log('Now connected, connection ID=' + $.connection.hub.id); })
+            .fail(function () { console.log('Could not Connect!'); });
+    </script>
+</head>
+<body>
+    <div id="imagediv"></div>
+
+</body>
+</html>

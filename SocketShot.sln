@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketShot", "SocketShot\SocketShot.csproj", "{EFDF1056-8D0E-411D-951A-D4F82B3C9905}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketStreamer", "SocketStreamer\SocketStreamer.csproj", "{7BF8EF17-15CD-416E-A95C-2B8C68D13962}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EFDF1056-8D0E-411D-951A-D4F82B3C9905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFDF1056-8D0E-411D-951A-D4F82B3C9905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFDF1056-8D0E-411D-951A-D4F82B3C9905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFDF1056-8D0E-411D-951A-D4F82B3C9905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BF8EF17-15CD-416E-A95C-2B8C68D13962}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BF8EF17-15CD-416E-A95C-2B8C68D13962}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BF8EF17-15CD-416E-A95C-2B8C68D13962}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BF8EF17-15CD-416E-A95C-2B8C68D13962}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C44BB5C4-91C9-4468-A4CD-B7D7403A8D71}
+	EndGlobalSection
+EndGlobal
