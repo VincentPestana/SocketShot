@@ -94,7 +94,7 @@ namespace SocketShot
 				timer.Stop();
 				averageTime = (averageTime + timer.ElapsedMilliseconds) / 2;
 
-				Console.WriteLine(averageTime + "ms" + " NQuality: " + _qualitySetting + " Size:" + b64Bitmap.Length / 1024 + "Kb - " + ((sendFailed) ? "failed" : ""));
+				Console.WriteLine("FPS:Qual:Size - " + (1000 / averageTime) + " : " + _qualitySetting + " : " + b64Bitmap.Length / 1024 + "Kb" + ((sendFailed) ? " - failed" : ""));
 			}
 		}
 
