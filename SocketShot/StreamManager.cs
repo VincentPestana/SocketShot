@@ -17,7 +17,12 @@ namespace SocketShot
 
 		private int _desiredSizeKB = 64;
 
-        public StreamManager()
+		public StreamManager()
+		{
+			StreamBase64();
+		}
+
+        public void StreamBase64()
         {
 			bool capture = true;
 
@@ -31,9 +36,9 @@ namespace SocketShot
             // Initialize
             Bitmap bitmap;
             Graphics graphics;
-            var groupName = DateTime.Now.Ticks.ToString();
             
-            bitmap = new Bitmap(1000, 1000, PixelFormat.Format24bppRgb);
+			// Capture 1920x1080 pixels
+            bitmap = new Bitmap(1920, 1080, PixelFormat.Format24bppRgb);
 
             graphics = Graphics.FromImage(bitmap as Image);
             string b64Bitmap = "";
@@ -43,19 +48,15 @@ namespace SocketShot
 			EncoderParameters encoderParameters = new EncoderParameters(1);
 			// Quality options
 			var qualityEncoder = Encoder.Quality;
-			//EncoderParameter qualityEncoderParameter = new EncoderParameter(qualityEncoder, 20L);
 			EncoderParameter qualityEncoderParameter = new EncoderParameter(qualityEncoder, _qualitySetting);
 			encoderParameters.Param[0] = qualityEncoderParameter;
 
-			// Increase quality
-			var increaseQuality = false;
-
+			// Capture to infinity
 			while (capture)
 			{
 				timer.Restart();
 
-				//graphics.CopyFromScreen(0, 0, 0, 0, bitmap.Size);
-				graphics.CopyFromScreen(1920, 200, 0, 0, bitmap.Size);
+				graphics.CopyFromScreen(0, 0, 0, 0, bitmap.Size);
 
 				using (var ms = new MemoryStream())
 				{
@@ -80,14 +81,11 @@ namespace SocketShot
 				
 				// Quality adjustment
 				var sizeSent = b64Bitmap.Length / 1024;
-				if (sizeSent > (_desiredSizeKB + 10))
-				{
+				if (sizeSent > (_desiredSizeKB + 5))
 					_qualitySetting -= 2L;
-				}
-				else if (sizeSent < (_desiredSizeKB - 10))
-				{
+				else if (sizeSent < (_desiredSizeKB - 5))
 					_qualitySetting += 2L;
-				}
+
 				qualityEncoderParameter = new EncoderParameter(qualityEncoder, _qualitySetting);
 				encoderParameters.Param[0] = qualityEncoderParameter;
 
@@ -105,9 +103,7 @@ namespace SocketShot
 			foreach (ImageCodecInfo codec in codecs)
 			{
 				if (codec.FormatID == format.Guid)
-				{
 					return codec;
-				}
 			}
 
 			return null;
