@@ -67,10 +67,11 @@ namespace SocketShot
 					b64Bitmap = Convert.ToBase64String(byteImage);
 				}
 
+				// Send image over SignalR
 				bool sendFailed;
 				try
 				{
-					hubProxy.Invoke("sendScreen", "data:image/png;base64, " + b64Bitmap);
+					hubProxy.Invoke("sendScreen", "data:image/png;base64, " + b64Bitmap).Wait();
 					sendFailed = false;
 				}
 				catch (Exception e)
