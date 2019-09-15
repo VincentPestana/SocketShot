@@ -1,4 +1,5 @@
-﻿using Owin;
+﻿using Microsoft.AspNet.SignalR;
+using Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,9 @@ namespace SocketStreamer
         public void Configuration(IAppBuilder app)
         {
             app.MapSignalR();
-           
-        }
+			// Set max size to 128kb
+			GlobalHost.Configuration.MaxIncomingWebSocketMessageSize = 131072;
+
+		}
     }
 }
