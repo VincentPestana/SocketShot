@@ -13,7 +13,7 @@ namespace SocketShot
     internal class StreamManager
     {
 		// Initial starting quality setting
-		private long _qualitySetting = 50L;
+		private long _qualitySetting = 20L;
 
 		private int _desiredSizeKB = 64;
 
@@ -60,10 +60,12 @@ namespace SocketShot
 
 				using (var ms = new MemoryStream())
 				{
-					//bitmap.Save(ms, ImageFormat.Png); // Too large
 					bitmap.Save(ms, jpgEncoder, encoderParameters);
 					
+					// Bitmap image to array
 					byte[] byteImage = ms.ToArray();
+
+					// Convert to Base64
 					b64Bitmap = Convert.ToBase64String(byteImage);
 				}
 
@@ -79,13 +81,21 @@ namespace SocketShot
 					// Image could not be sent
 					sendFailed = true;
 				}
-				
-				// Quality adjustment
-				var sizeSent = b64Bitmap.Length / 1024;
-				if (sizeSent > (_desiredSizeKB + 5))
-					_qualitySetting -= 2L;
-				else if (sizeSent < (_desiredSizeKB - 5))
-					_qualitySetting += 2L;
+
+				if (sendFailed)
+				{
+					// Sending failed, decrease quality all the way
+					_qualitySetting = 0L;
+				}
+				else
+				{
+					// Dynamic Quality adjustment
+					var sizeSent = b64Bitmap.Length / 1024;
+					if (sizeSent > (_desiredSizeKB + 5))
+						_qualitySetting -= 2L;
+					else if (sizeSent < (_desiredSizeKB - 5))
+						_qualitySetting += 2L;
+				}
 
 				qualityEncoderParameter = new EncoderParameter(qualityEncoder, _qualitySetting);
 				encoderParameters.Param[0] = qualityEncoderParameter;
