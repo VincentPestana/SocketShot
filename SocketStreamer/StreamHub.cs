@@ -4,10 +4,9 @@ namespace SocketStreamer
 {
 	public class StreamHub : Hub
     {
-        public string SendScreen(string jsonBitmap)
+        public void SendScreen(string jsonBitmap)
         {
             Clients.AllExcept(Context.ConnectionId).sendScreen(jsonBitmap);
-            return "";
         }
     }
 }

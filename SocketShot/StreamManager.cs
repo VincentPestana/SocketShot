@@ -3,20 +3,16 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.IO.Compression;
-using System.Windows.Forms;
 using Microsoft.AspNet.SignalR.Client;
-using Microsoft.AspNet.SignalR.Client.Hubs;
-using Newtonsoft.Json;
 
 namespace SocketShot
 {
-    internal class StreamManager
+	internal class StreamManager
     {
 		// Initial starting quality setting
 		private long _qualitySetting = 20L;
 
-		private int _desiredSizePerShotKB = 96;
+		private int _desiredSizePerShotKB = 80;
 
 		// Image resize
 		//	1920 × 1080 
@@ -24,8 +20,8 @@ namespace SocketShot
 		//	960 × 540 
 		//	720 × 480 
 		//	640 × 360
-		private int _streamImageWidth = 1280;
-		private int _streamImageHeight = 720;
+		private int _streamImageWidth = 960;
+		private int _streamImageHeight = 540;
 
 		public StreamManager()
 		{
@@ -80,6 +76,8 @@ namespace SocketShot
 
 					// Convert to Base64
 					b64Bitmap = Convert.ToBase64String(byteImage);
+
+					ms.Dispose();
 				}
 				
 				// Send image over SignalR

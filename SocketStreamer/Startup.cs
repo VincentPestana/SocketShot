@@ -7,11 +7,11 @@ namespace SocketStreamer
     {
         public void Configuration(IAppBuilder app)
         {
-            app.MapSignalR();
 			// Set max size to 128kb
 			GlobalHost.Configuration.MaxIncomingWebSocketMessageSize = 131072;
 			// Set message queue size
 			GlobalHost.Configuration.DefaultMessageBufferSize = 0;
+            app.MapSignalR();
 
 		}
     }
