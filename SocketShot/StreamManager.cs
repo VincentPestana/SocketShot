@@ -23,8 +23,11 @@ namespace SocketShot
 		private int _streamImageWidth = 960;
 		private int _streamImageHeight = 540;
 
-		public StreamManager()
+		private IHubProxy _hubProxy;
+
+		public StreamManager(IHubProxy hubProxy)
 		{
+			_hubProxy = hubProxy;
 			StreamBase64();
 		}
 
@@ -34,10 +37,6 @@ namespace SocketShot
 
             Stopwatch timer = new Stopwatch();
             var averageTime = 0L;
-
-            var hubConnection = new HubConnection("http://localhost:51628/");
-            var hubProxy = hubConnection.CreateHubProxy("StreamHub");
-            hubConnection.Start().Wait();
 
             // Initialize
             Bitmap bitmap;
@@ -84,7 +83,7 @@ namespace SocketShot
 				bool sendFailed;
 				try
 				{
-					hubProxy.Invoke("sendScreen", "data:image/png;base64, " + b64Bitmap).Wait();
+					_hubProxy.Invoke("sendScreen", "data:image/png;base64, " + b64Bitmap).Wait();
 					sendFailed = false;
 				}
 				catch (Exception e)
