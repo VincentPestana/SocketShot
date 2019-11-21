@@ -1,21 +1,23 @@
 ﻿using Microsoft.AspNet.SignalR.Client;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SocketShot
 {
-    class Program
+	class Program
     {
         static void Main(string[] args)
         {
 			// Setup SignalR
-			//TODO : Ask user for url
-			var hubConnection = new HubConnection("http://localhost:51628/");
+			Console.WriteLine("Enter SR url? Hit enter for default: http://localhost:51628/");
+			var enteredUrl = Console.ReadLine();
+			if (string.IsNullOrEmpty(enteredUrl))
+				enteredUrl = "http://localhost:51628/";
+
+			var hubConnection = new HubConnection(enteredUrl);
 			var hubProxy = hubConnection.CreateHubProxy("StreamHub");
 			hubConnection.Start().Wait();
+
+			Console.WriteLine("Connected to server - Starting stream");
 
 			var manager = new StreamManager(hubProxy);
         }
