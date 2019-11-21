@@ -9,7 +9,7 @@
 
     <script type="text/javascript">
         var contosoChatHubProxy = $.connection.streamHub;
-        contosoChatHubProxy.client.sendScreen = function (bitmap) {
+        contosoChatHubProxy.client.sendB64Screen = function (bitmap) {
             //console.log('received');
             //debugger;
             document.getElementById("imagediv").setAttribute('src', bitmap);

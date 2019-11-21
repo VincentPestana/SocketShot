@@ -83,7 +83,7 @@ namespace SocketShot
 				bool sendFailed;
 				try
 				{
-					_hubProxy.Invoke("sendScreen", "data:image/png;base64, " + b64Bitmap).Wait();
+					_hubProxy.Invoke("sendB64Screen", "data:image/png;base64, " + b64Bitmap).Wait();
 					sendFailed = false;
 				}
 				catch (Exception e)
