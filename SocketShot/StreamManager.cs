@@ -25,6 +25,8 @@ namespace SocketShot
 
 		private IHubProxy _hubProxy;
 
+		bool _capture = true;
+
 		public StreamManager(IHubProxy hubProxy)
 		{
 			_hubProxy = hubProxy;
@@ -33,8 +35,6 @@ namespace SocketShot
 
         public void StreamBase64()
         {
-			bool capture = true;
-
             Stopwatch timer = new Stopwatch();
             var averageTime = 0L;
 
@@ -46,7 +46,7 @@ namespace SocketShot
 			// Capture 1920x1080 pixels
             bitmap = new Bitmap(1920, 1080, PixelFormat.Format24bppRgb);
             graphics = Graphics.FromImage(bitmap as Image);
-
+			
 			// Setup encoder
 			ImageCodecInfo jpgEncoder = GetEncoder(ImageFormat.Jpeg);
 			EncoderParameters encoderParameters = new EncoderParameters(1);
@@ -57,7 +57,7 @@ namespace SocketShot
 			encoderParameters.Param[0] = qualityEncoderParameter;
 
 			// Capture to infinity
-			while (capture)
+			while (_capture)
 			{
 				timer.Restart();
 
