@@ -8,10 +8,9 @@
     <script src="signalr/hubs"></script>
 
     <script type="text/javascript">
-        var contosoChatHubProxy = $.connection.streamHub;
-        contosoChatHubProxy.client.sendB64Screen = function (bitmap) {
+        var hubProxy = $.connection.streamHub;
+        hubProxy.client.sendB64Screen = function (bitmap) {
             //console.log('received');
-            //debugger;
             document.getElementById("imagediv").setAttribute('src', bitmap);
             //console.log(document.getElementById("imagediv").getAttribute('src'));
         };
