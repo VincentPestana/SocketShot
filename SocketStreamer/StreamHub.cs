@@ -6,7 +6,7 @@ namespace SocketStreamer
     {
         public void SendB64Screen(string jsonBitmap)
         {
-            Clients.AllExcept(Context.ConnectionId).sendScreen(jsonBitmap);
+            Clients.AllExcept(Context.ConnectionId).sendB64Screen(jsonBitmap);
         }
     }
 }
