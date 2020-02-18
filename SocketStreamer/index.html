@@ -15,7 +15,7 @@
 			$("#imagediv").show();
 			$("#loading").hide();
 
-            document.getElementById("imagediv").setAttribute('src', bitmap);
+			$("#imagediv").attr("src", bitmap);
             //console.log(document.getElementById("imagediv").getAttribute('src'));
         };
         $.connection.hub.start()
