@@ -11,12 +11,17 @@
         var hubProxy = $.connection.streamHub;
         hubProxy.client.sendB64Screen = function (bitmap) {
             //console.log('received');
+
+			$("#imagediv").show();
+			$("#loading").hide();
+
             document.getElementById("imagediv").setAttribute('src', bitmap);
             //console.log(document.getElementById("imagediv").getAttribute('src'));
         };
         $.connection.hub.start()
 			.done(function () {
 				console.log('Now connected, connection ID=' + $.connection.hub.id);
+				$("#loading").text("Connected to hub, waiting for Stream...");
 			})
 			.fail(function () {
 				console.log('Could not Connect!');
@@ -24,7 +29,7 @@
     </script>
 </head>
 <body>
-    <img width="100%" id="imagediv" />
-
+    <img style="display: none; width: 100%;" id="imagediv" />
+    <div id="loading">Connecting to Hub...</div>
 </body>
 </html>
