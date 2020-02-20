@@ -35,6 +35,8 @@ namespace SocketShot
 
         public void StreamBase64()
         {
+			// TODO: Have multiple timers, timing each piece of the capture+stream
+
             Stopwatch timer = new Stopwatch();
             var averageTime = 0L;
 
