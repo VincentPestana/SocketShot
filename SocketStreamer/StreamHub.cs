@@ -8,5 +8,10 @@ namespace SocketStreamer
         {
             Clients.AllExcept(Context.ConnectionId).sendB64Screen(jsonBitmap);
         }
+
+        public void SendScreenDetailed(string jsonImageObject)
+        {
+            Clients.AllExcept(Context.ConnectionId).sendScreenDetailed(jsonImageObject);
+        }
     }
 }
