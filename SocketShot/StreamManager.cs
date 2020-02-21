@@ -27,6 +27,8 @@ namespace SocketShot
 
 		bool _capture = true;
 
+		StreamMeta _streamDetailed;
+
 		public StreamManager(IHubProxy hubProxy)
 		{
 			_hubProxy = hubProxy;
@@ -44,9 +46,16 @@ namespace SocketShot
             Bitmap bitmap;
             Graphics graphics;
             string b64Bitmap = "";
-            
+
+			_streamDetailed = new StreamMeta()
+			{
+				CaptureWidth = 1920,
+				CaptureHeight = 1080,
+				BitmapEncodeQuality = _qualitySetting.ToString()
+			};
+
 			// Capture 1920x1080 pixels
-            bitmap = new Bitmap(1920, 1080, PixelFormat.Format24bppRgb);
+			bitmap = new Bitmap(1920, 1080, PixelFormat.Format24bppRgb);
             graphics = Graphics.FromImage(bitmap as Image);
 			
 			// Setup encoder
@@ -57,7 +66,7 @@ namespace SocketShot
 			var qualityEncoder = Encoder.Quality;
 			EncoderParameter qualityEncoderParameter = new EncoderParameter(qualityEncoder, _qualitySetting);
 			encoderParameters.Param[0] = qualityEncoderParameter;
-
+			
 			// Capture to infinity
 			while (_capture)
 			{
