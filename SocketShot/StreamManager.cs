@@ -39,7 +39,9 @@ namespace SocketShot
         {
 			// TODO: Have multiple timers, timing each piece of the capture+stream
 
-            Stopwatch timer = new Stopwatch();
+            Stopwatch timerOverall = new Stopwatch();
+			Stopwatch timerSend = new Stopwatch();
+			Stopwatch timerCapture = new Stopwatch();
             var averageTime = 0L;
 
             // Initialize
@@ -70,7 +72,8 @@ namespace SocketShot
 			// Capture to infinity
 			while (_capture)
 			{
-				timer.Restart();
+				timerOverall.Restart();
+				timerCapture.Restart();
 
 				graphics.CopyFromScreen(0, 0, 0, 0, bitmap.Size);
 
