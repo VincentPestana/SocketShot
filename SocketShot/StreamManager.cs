@@ -92,12 +92,22 @@ namespace SocketShot
 
 					ms.Dispose();
 				}
-				
+
+				timerCapture.Stop();
+
+				_streamDetailed.JsonB64Bitmap = "data:image/png;base64, " + b64Bitmap;
+
 				// Send image over SignalR
 				bool sendFailed;
 				try
 				{
-					_hubProxy.Invoke("sendB64Screen", "data:image/png;base64, " + b64Bitmap).Wait();
+					timerSend.Restart();
+
+					//_hubProxy.Invoke("sendB64Screen", "data:image/png;base64, " + b64Bitmap).Wait();
+					_hubProxy.Invoke("SendScreenDetailed", _streamDetailed).Wait();
+
+					timerSend.Stop();
+
 					sendFailed = false;
 				}
 				catch (Exception e)
@@ -124,8 +134,13 @@ namespace SocketShot
 				qualityEncoderParameter = new EncoderParameter(qualityEncoder, _qualitySetting);
 				encoderParameters.Param[0] = qualityEncoderParameter;
 
-				timer.Stop();
-				averageTime = (averageTime + timer.ElapsedMilliseconds) / 2;
+				timerOverall.Stop();
+				averageTime = (averageTime + timerOverall.ElapsedMilliseconds) / 2;
+
+				// Timers for the detailed stream
+				_streamDetailed.TimerSendMilliseconds = timerSend.ElapsedMilliseconds;
+				_streamDetailed.TimerOverallMilliseconds = timerOverall.ElapsedMilliseconds;
+				_streamDetailed.TimerCaptureMilliseconds = timerCapture.ElapsedMilliseconds;
 
 				Console.WriteLine("FPS:Qual:Size - " + (1000 / averageTime) + " : " + _qualitySetting + " : " + b64Bitmap.Length / 1024 + "Kb" + ((sendFailed) ? " - failed" : ""));
 			}
