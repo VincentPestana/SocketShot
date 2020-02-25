@@ -8,16 +8,8 @@
     <script src="signalr/hubs"></script>
 
     <script type="text/javascript">
-        var hubProxy = $.connection.streamHub;
-        hubProxy.client.sendB64Screen = function (bitmap) {
-            //console.log('received');
+		var hubProxy = $.connection.streamHub;
 
-			$("#imagediv").show();
-			$("#loading").hide();
-
-			$("#imagediv").attr("src", bitmap);
-            //console.log(document.getElementById("imagediv").getAttribute('src'));
-        };
         $.connection.hub.start()
 			.done(function () {
 				console.log('Now connected, connection ID=' + $.connection.hub.id);
@@ -26,9 +18,29 @@
 			.fail(function () {
 				console.log('Could not Connect!');
 			});
+
+        hubProxy.client.sendB64Screen = function (bitmap) {
+            //console.log('received');
+
+			$("#imagediv").show();
+			$("#loading").hide();
+
+			$("#imagediv").attr("src", bitmap);
+            //console.log(document.getElementById("imagediv").getAttribute('src'));
+		};
+
+		hubProxy.client.sendScreenDetailed = function (stream) {
+			console.log("Screen Detailed received");
+
+			$("#imagediv").show();
+			$("#loading").hide();
+
+			$("#imagediv").attr("src", stream.bitmap);
+		};
     </script>
 </head>
 <body>
+
     <img style="display: none; width: 100%;" id="imagediv" />
     <div id="loading">Connecting to Hub...</div>
 </body>
