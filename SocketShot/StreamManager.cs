@@ -104,7 +104,7 @@ namespace SocketShot
 					timerSend.Restart();
 
 					//_hubProxy.Invoke("sendB64Screen", "data:image/png;base64, " + b64Bitmap).Wait();
-					_hubProxy.Invoke("SendScreenDetailed", _streamDetailed).Wait();
+					_hubProxy.Invoke("sendScreenDetailed", _streamDetailed).Wait();
 
 					timerSend.Stop();
 

@@ -30,17 +30,16 @@
 		};
 
 		hubProxy.client.sendScreenDetailed = function (stream) {
-			console.log("Screen Detailed received");
-
+			//console.log("Screen Detailed received");
+			//debugger;
 			$("#imagediv").show();
 			$("#loading").hide();
 
-			$("#imagediv").attr("src", stream.bitmap);
+			$("#imagediv").attr("src", stream.JsonB64Bitmap);
 		};
     </script>
 </head>
 <body>
-
     <img style="display: none; width: 100%;" id="imagediv" />
     <div id="loading">Connecting to Hub...</div>
 </body>
