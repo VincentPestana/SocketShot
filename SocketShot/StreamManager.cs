@@ -142,6 +142,12 @@ namespace SocketShot
 				_streamDetailed.TimerOverallMilliseconds = timerOverall.ElapsedMilliseconds;
 				_streamDetailed.TimerCaptureMilliseconds = timerCapture.ElapsedMilliseconds;
 
+				// More information regarding the stream
+				//_streamDetailed.FramesPerSecond = 1000 / averageTime / 1;
+				_streamDetailed.StreamSizeKB = b64Bitmap.Length / 1024;
+				_streamDetailed.BitmapEncodeQuality = _qualitySetting.ToString();
+				_streamDetailed.FramesPerSecond = (int)(1000 / averageTime);
+
 				Console.WriteLine("FPS:Qual:Size - " + (1000 / averageTime) + " : " + _qualitySetting + " : " + b64Bitmap.Length / 1024 + "Kb" + ((sendFailed) ? " - failed" : ""));
 			}
 		}
