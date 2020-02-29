@@ -143,7 +143,8 @@ namespace SocketShot
 				_streamDetailed.TimerCaptureMilliseconds = timerCapture.ElapsedMilliseconds;
 
 				// More information regarding the stream
-				//_streamDetailed.FramesPerSecond = 1000 / averageTime / 1;
+				_streamDetailed.StreamHeight = _streamImageHeight;
+				_streamDetailed.StreamWidth = _streamImageWidth;
 				_streamDetailed.StreamSizeKB = b64Bitmap.Length / 1024;
 				_streamDetailed.BitmapEncodeQuality = _qualitySetting.ToString();
 				_streamDetailed.FramesPerSecond = (int)(1000 / averageTime);
