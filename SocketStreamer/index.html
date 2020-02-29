@@ -31,15 +31,20 @@
 
 		hubProxy.client.sendScreenDetailed = function (stream) {
 			//console.log("Screen Detailed received");
+			console.log(stream);
 			//debugger;
 			$("#imagediv").show();
 			$("#loading").hide();
 
 			$("#imagediv").attr("src", stream.JsonB64Bitmap);
+			$("#InfoResolutions").text("" + stream.StreamWidth + "x" + stream.StreamHeight);
+			$("#InfoStreamTime").text(stream.TimerOverallMilliseconds + "ms");
 		};
     </script>
 </head>
 <body>
+	<span id="InfoStreamTime">0ms</span>
+	<span id="InfoResolutions">1920x1080</span>
     <img style="display: none; width: 100%;" id="imagediv" />
     <div id="loading">Connecting to Hub...</div>
 </body>
