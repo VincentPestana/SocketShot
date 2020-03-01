@@ -12,6 +12,7 @@
 		public float TimerCaptureMilliseconds { get; set; }
 		public float TimerSendMilliseconds { get; set; }
 		public int StreamSizeKB { get; set; }
+		public int StreamDesiredSizeKB { get; set; }
 		public int FramesPerSecond { get; set; }
 		public bool PreviousFrameFailedToSend { get; set; }
 	}

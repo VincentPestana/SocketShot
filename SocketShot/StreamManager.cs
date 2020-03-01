@@ -148,6 +148,7 @@ namespace SocketShot
 				_streamDetailed.StreamSizeKB = b64Bitmap.Length / 1024;
 				_streamDetailed.BitmapEncodeQuality = _qualitySetting.ToString();
 				_streamDetailed.FramesPerSecond = (int)(1000 / averageTime);
+				_streamDetailed.StreamDesiredSizeKB = _desiredSizePerShotKB;
 
 				Console.WriteLine("FPS:Qual:Size - " + (1000 / averageTime) + " : " + _qualitySetting + " : " + b64Bitmap.Length / 1024 + "Kb" + ((sendFailed) ? " - failed" : ""));
 			}

@@ -40,6 +40,7 @@
 			$("#InfoResolutions").text("" + stream.StreamWidth + "x" + stream.StreamHeight);
 			$("#InfoStreamTime").text(stream.TimerOverallMilliseconds + "ms");
 			$("#InfoSizeKB").text(stream.StreamSizeKB + "kb");
+			$("#InfoDesiredSizeKB").text("/" + stream.StreamDesiredSizeKB + "kb");
 			$("#InfoFPS").text(stream.FramesPerSecond + "fps");
 		};
     </script>
@@ -48,6 +49,7 @@
 	<span id="InfoStreamTime">0ms</span>
 	<span id="InfoResolutions">1920x1080</span>
 	<span id="InfoSizeKB">0KB</span>
+	<span id="InfoDesiredSizeKB"> / 0KB</span>
 	<span id="InfoFPS">0fps</span>
     <img style="display: none; width: 100%;" id="imagediv" />
     <div id="loading">Connecting to Hub...</div>
