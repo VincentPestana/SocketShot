@@ -39,13 +39,14 @@
 			if (!sendScreenDetailedInitialize) {
 				$("#imagediv").show();
 				$("#loading").hide();
-				debugger;
 				// Setup the settings
-				$("#CResolutionWidth").val(stream.StreamWidth);
-				$("#CResolutionHeight").val(stream.StreamHeight);
 
 				sendScreenDetailedInitialize = true;
 			}
+
+			// Set the inputs
+			$("#CResolutionWidth").val(stream.StreamWidth);
+			$("#CResolutionHeight").val(stream.StreamHeight);
 
 			$("#imagediv").attr("src", stream.JsonB64Bitmap);
 			$("#InfoResolutions").text("" + stream.StreamWidth + "x" + stream.StreamHeight);
@@ -68,8 +69,8 @@
 		<tr>
 			<td colspan="5">
 				Res
-				<input id="CResolutionWidth" type="number" value="1920" />
-				<input id="CResolutionHeight" type="number" value="1080" />
+				<input id="CResolutionWidth" type="number" value="1920" style="width: 50px" />
+				<input id="CResolutionHeight" type="number" value="1080" style="width: 50px" />
 			</td>
 			
 		</tr>
