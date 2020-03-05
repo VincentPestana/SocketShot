@@ -8,6 +8,8 @@
     <script src="signalr/hubs"></script>
 
     <script type="text/javascript">
+		var sendScreenDetailedInitialize = false;
+
 		var hubProxy = $.connection.streamHub;
 
         $.connection.hub.start()
@@ -31,10 +33,19 @@
 
 		hubProxy.client.sendScreenDetailed = function (stream) {
 			//console.log("Screen Detailed received");
-			console.log(stream);
+			//console.log(stream);
 			//debugger;
-			$("#imagediv").show();
-			$("#loading").hide();
+
+			if (!sendScreenDetailedInitialize) {
+				$("#imagediv").show();
+				$("#loading").hide();
+				debugger;
+				// Setup the settings
+				$("#CResolutionWidth").val(stream.StreamWidth);
+				$("#CResolutionHeight").val(stream.StreamHeight);
+
+				sendScreenDetailedInitialize = true;
+			}
 
 			$("#imagediv").attr("src", stream.JsonB64Bitmap);
 			$("#InfoResolutions").text("" + stream.StreamWidth + "x" + stream.StreamHeight);
