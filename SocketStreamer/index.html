@@ -47,6 +47,7 @@
 			// Set the inputs
 			$("#CResolutionWidth").val(stream.StreamWidth);
 			$("#CResolutionHeight").val(stream.StreamHeight);
+			$("#CDesiredSize").val(stream.StreamDesiredSizeKB);
 
 			$("#imagediv").attr("src", stream.JsonB64Bitmap);
 			$("#InfoResolutions").text("" + stream.StreamWidth + "x" + stream.StreamHeight);
@@ -72,7 +73,10 @@
 				<input id="CResolutionWidth" type="number" value="1920" style="width: 50px" />
 				<input id="CResolutionHeight" type="number" value="1080" style="width: 50px" />
 			</td>
-			
+			<td colspan="5">
+				Size
+				<input id="CDesiredSize" type="number" value="32" />
+			</td>
 		</tr>
 	</table>
 
