@@ -37,8 +37,6 @@ namespace SocketShot
 
         public void StreamBase64()
         {
-			// TODO: Have multiple timers, timing each piece of the capture+stream
-
             Stopwatch timerOverall = new Stopwatch();
 			Stopwatch timerSend = new Stopwatch();
 			Stopwatch timerCapture = new Stopwatch();
@@ -149,8 +147,10 @@ namespace SocketShot
 				_streamDetailed.BitmapEncodeQuality = _qualitySetting.ToString();
 				_streamDetailed.FramesPerSecond = (int)(1000 / averageTime);
 				_streamDetailed.StreamDesiredSizeKB = _desiredSizePerShotKB;
+				_streamDetailed.PreviousFrameFailedToSend = sendFailed;
 
-				Console.WriteLine("FPS:Qual:Size - " + (1000 / averageTime) + " : " + _qualitySetting + " : " + b64Bitmap.Length / 1024 + "Kb" + ((sendFailed) ? " - failed" : ""));
+				//Console.WriteLine("FPS:Qual:Size - " + (1000 / averageTime) + " : " + _qualitySetting + " : " + b64Bitmap.Length / 1024 + "Kb" + ((sendFailed) ? " - failed" : ""));
+				Console.WriteLine("FPS:" + (1000 / averageTime) + " Qual: " + _qualitySetting + " Size: " + b64Bitmap.Length / 1024 + "Kb" + ((sendFailed) ? " - failed" : ""));
 			}
 		}
 
