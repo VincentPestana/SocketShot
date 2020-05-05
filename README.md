@@ -17,3 +17,6 @@ Everything is currently designed to run on a single machine, however all 3 parts
 - Name should be something memorable, but unique amongst your IIS
 - Point to the directory you deployed to, all settings are default
 - Confirm with phone on the same wifi network that site loads
+
+## Picture of app running
+![Application Streaming](https://github.com/VincentPestana/SocketShot/blob/master/HanselmanScreenshot.png)
